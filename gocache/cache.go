@@ -41,7 +41,7 @@ func (c *Cache) Set(key string, value interface{}, ttl time.Duration) {
 func (c *Cache) Get(key string) (interface{}, bool) {
 	c.mu.RLock()
 	item, found := c.items[key]
-	c.mu.Unlock()
+	c.mu.RUnlock()
 	if !found {
 		return nil, false
 	}
