@@ -1,0 +1,20 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Testing and build output
+*.test
+*.out
+
+# Go build cache and mod data
+bin/
+vendor/
+dist/
+
+# IDE/editor configs
+.idea/
+.vscode/
+*.swp
