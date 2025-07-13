@@ -1,6 +1,8 @@
 package gocache
 
 import (
+	"maps"
+	"slices"
 	"sync"
 	"time"
 )
@@ -86,4 +88,33 @@ func (c *Cache) deleteExpired() {
 		}
 	}
 	c.mu.Unlock()
+}
+
+func (c *Cache) Keys() []string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return slices.Collect(maps.Keys(c.items))
+}
+
+func (c *Cache) TTL(key string) (int64, bool) {
+	cacheItemValue, ok := c.items[key]
+	if !ok {
+		return 0, false
+	}
+	exp := cacheItemValue.expiration
+	if exp == 0 {
+		return -1, true // -1 denotes no expiry
+	}
+	timeRemaining := exp - time.Now().UnixNano()
+	if timeRemaining <= 0 {
+		c.Delete(key)
+		return 0, true
+	}
+	return timeRemaining, true
+}
+
+func (c *Cache) FlushAll() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	clear(c.items)
 }

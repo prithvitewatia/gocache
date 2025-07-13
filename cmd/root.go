@@ -47,6 +47,12 @@ var rootCmd = &cobra.Command{
 				getCmd.Run(cmd, args[1:])
 			case "del":
 				delCmd.Run(cmd, args[1:])
+			case "keys":
+				keysCmd.Run(cmd, args[1:])
+			case "ttl":
+				ttlCmd.Run(cmd, args[1:])
+			case "flushall":
+				flushAllCmd.Run(cmd, args[1:])
 			default:
 				fmt.Println("Unknown command:", args[0])
 			}
