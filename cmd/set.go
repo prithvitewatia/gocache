@@ -25,8 +25,12 @@ var setCmd = &cobra.Command{
 			}
 			ttl = parsedTTL
 		}
-		cacheInstance.Set(key, value, ttl)
-		fmt.Println("OK")
+		err := RequestSet(key, value, ttl)
+		if err != nil {
+			fmt.Println("Error setting key:", err)
+		} else {
+			fmt.Println("OK")
+		}
 	},
 }
 

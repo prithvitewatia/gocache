@@ -4,12 +4,25 @@ package cmd
 import (
 	"bufio"
 	"fmt"
+	"net/http"
 	"os"
 	"strings"
 
-	"github.com/prithvitewatia/gocache/gocache"
 	"github.com/spf13/cobra"
 )
+
+type Conf struct {
+	ServerHost string
+	ServerPort string
+}
+
+func loadConf() *Conf {
+	conf := &Conf{
+		ServerHost: "localhost",
+		ServerPort: "28109",
+	}
+	return conf
+}
 
 var rootCmd = &cobra.Command{
 	Use:   "gocache",
@@ -60,7 +73,15 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-var cacheInstance = gocache.NewCache()
+var Client = &http.Client{}
+var Config = loadConf()
+
+func init() {
+	rootCmd.PersistentFlags().StringVar(
+		&Config.ServerHost, "serverhost", "localhost", "gocache server host")
+	rootCmd.PersistentFlags().StringVar(
+		&Config.ServerPort, "serverport", "28109", "gocache server port")
+}
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {

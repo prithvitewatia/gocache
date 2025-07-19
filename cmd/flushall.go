@@ -9,7 +9,7 @@ var flushAllCmd = &cobra.Command{
 	Use:   "flushall",
 	Short: "Clear all keys from the cache",
 	Run: func(cmd *cobra.Command, args []string) {
-		cacheInstance.FlushAll()
+		RequestFlushAll()
 		fmt.Println("OK")
 	},
 }

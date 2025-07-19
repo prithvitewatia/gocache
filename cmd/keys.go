@@ -9,7 +9,7 @@ var keysCmd = &cobra.Command{
 	Use:   "keys",
 	Short: "List all keys",
 	Run: func(cmd *cobra.Command, args []string) {
-		for _, key := range cacheInstance.Keys() {
+		for _, key := range RequestKeys() {
 			fmt.Println(key)
 		}
 	},

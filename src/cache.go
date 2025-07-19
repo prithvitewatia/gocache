@@ -1,4 +1,4 @@
-package gocache
+package src
 
 import (
 	"maps"
@@ -105,7 +105,7 @@ func (c *Cache) TTL(key string) (int64, bool) {
 	if exp == 0 {
 		return -1, true // -1 denotes no expiry
 	}
-	timeRemaining := exp - time.Now().UnixNano()
+	timeRemaining := (exp - time.Now().UnixNano()) / int64(time.Second)
 	if timeRemaining <= 0 {
 		c.Delete(key)
 		return 0, true

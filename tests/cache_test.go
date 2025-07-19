@@ -1,13 +1,13 @@
 package tests
 
 import (
-	"github.com/prithvitewatia/gocache/gocache"
+	"github.com/prithvitewatia/gocache/src"
 	"testing"
 	"time"
 )
 
 func TestSetGet(t *testing.T) {
-	c := gocache.NewCache()
+	c := src.NewCache()
 	defer c.Close()
 
 	c.Set("key1", "value1", 0)
@@ -18,7 +18,7 @@ func TestSetGet(t *testing.T) {
 }
 
 func TestExpiration(t *testing.T) {
-	c := gocache.NewCache()
+	c := src.NewCache()
 	defer c.Close()
 
 	c.Set("key1", "value1", 5*time.Millisecond)
@@ -30,7 +30,7 @@ func TestExpiration(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	c := gocache.NewCache()
+	c := src.NewCache()
 	defer c.Close()
 	c.Set("key1", "value1", 0)
 	c.Delete("key1")
@@ -43,7 +43,7 @@ func TestDelete(t *testing.T) {
 }
 
 func TestOverwrite(t *testing.T) {
-	c := gocache.NewCache()
+	c := src.NewCache()
 	defer c.Close()
 
 	c.Set("dup", "first", 0)

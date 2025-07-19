@@ -15,8 +15,11 @@ var delCmd = &cobra.Command{
 			return
 		}
 		key := args[0]
-		cacheInstance.Delete(key)
-		fmt.Println("OK")
+		if err := RequestDelete(key); err != nil {
+			fmt.Println("Error deleting key:", err)
+		} else {
+			fmt.Println("OK")
+		}
 	},
 }
 

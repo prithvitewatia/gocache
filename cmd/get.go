@@ -15,7 +15,7 @@ var getCmd = &cobra.Command{
 			return
 		}
 		key := args[0]
-		if val, ok := cacheInstance.Get(key); ok {
+		if val, ok := RequestGet(key); ok {
 			fmt.Println(val)
 		} else {
 			fmt.Println("(nil)")
